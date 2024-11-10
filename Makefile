@@ -1,5 +1,5 @@
 up:
-	docker compose -f docker-compose-dev.yml --env-file ./.env.development up -d redis postgres mailhog
+	docker compose -f docker-compose-dev.yml up -d redis postgres mailpit
 	yarn install-local-ssl
 	yarn install --pure-lockfile
 	yarn dev:watch
@@ -8,14 +8,14 @@ build:
 	docker compose build --pull outline
 
 test:
-	docker compose -f docker-compose-dev.yml --env-file ./.env.development up -d redis postgres mailhog
+	docker compose -f docker-compose-dev.yml up -d redis postgres mailpit
 	NODE_ENV=test yarn sequelize db:drop
 	NODE_ENV=test yarn sequelize db:create
 	NODE_ENV=test yarn sequelize db:migrate
 	yarn test
 
 watch:
-	docker compose -f docker-compose-dev.yml up -d redis postgres mailhog
+	docker compose -f docker-compose-dev.yml up -d redis postgres mailpit
 	NODE_ENV=test yarn sequelize db:drop
 	NODE_ENV=test yarn sequelize db:create
 	NODE_ENV=test yarn sequelize db:migrate

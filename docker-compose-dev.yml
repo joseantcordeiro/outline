@@ -30,24 +30,27 @@ services:
       timeout: 5s
       retries: 5
 
-  mailhog:
-    image: mailhog/mailhog:latest
+  mailpit:
+    image: axllent/mailpit
     restart: unless-stopped
     environment:
-      MH_STORAGE: maildir
-      MH_MAILDIR_PATH: /home/mailhog
+      MP_MAX_MESSAGES: 5000
+      MP_DATABASE: /data/mailpit.db
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+      TZ: Europe/Lisbon
     ports:
       - "1025:1025"
       - "8025:8025"
     volumes:
-      - mailhog_data:/home/mailhog
-    healthcheck:
-      test: [ "CMD", "echo | telnet 127.0.0.1 8025" ]
-      interval: 1m30s
-      timeout: 5s
-      retries: 3
+      - mailpit_data:/data
+    #healthcheck:
+    #  test: [ "CMD", "echo | telnet 127.0.0.1 8025" ]
+    #  interval: 1m30s
+    #  timeout: 5s
+    #  retries: 3
 
 volumes:
   postgres_data:
   redis_data:
-  mailhog_data:
+  mailpit_data:
