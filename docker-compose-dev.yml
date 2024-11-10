@@ -35,12 +35,12 @@ services:
     restart: unless-stopped
     environment:
       MH_STORAGE: maildir
-      MH_MAILDIR_PATH: maildir
+      MH_MAILDIR_PATH: /home/mailhog
     ports:
       - "1025:1025"
       - "8025:8025"
     volumes:
-      - mailhog_data:/home/mailhog/maildir
+      - mailhog_data:/home/mailhog
     healthcheck:
       test: [ "CMD", "echo | telnet 127.0.0.1 8025" ]
       interval: 1m30s
