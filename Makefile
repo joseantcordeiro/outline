@@ -22,7 +22,7 @@ watch:
 	yarn test:watch
 
 destroy:
-	docker compose  -f docker-compose-dev.yml stop
+	docker compose -f docker-compose-dev.yml stop
 	docker compose rm -f docker-compose-dev.yml
 
 .PHONY: up build destroy test watch # let's go to reserve rules names
